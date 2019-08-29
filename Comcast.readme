@@ -1,0 +1,47 @@
+Assignment consisted out of three questions:
+1) Standard question of representation of an integer as a linked list.
+2) Standard question of finding the first non-repeating element in the string
+3) Question about creating an iterator class that would iterate only over positive integers.
+
+Q1 Solution explained:
+
+  Logic loop as follows
+  We start with the last element of both linked lists. Java allows us to get the element at a specific index in an efficient manner
+  We add them together, remember to carry elements over to the next one and prepend to the new list.
+  After a while we have 3 possibilities:
+  1) L1 is longer than L2. We just push L1 onto new list adding carry when appropriate
+  2) L2 is longer than L1. Same thing but in reverse
+  3) L1 and L2 are of the same size and there is no carry. No action is required.
+  
+  After all of it is done, we work on the remaining carry, pushing it onto the new list. Then we create the output string.
+  O(n) run (assuming getting elements at index i and prepending elements to linked list is efficient) with O(n) space.
+  
+Q2 Solution explained:
+
+  Typical bucket sorting. I have assumed in this assignment that the string is case-sensitive and allows for special characters
+  As no statement suggested otherwise.
+  We iterate over the string once, recording each symbol into the buckets.
+  Then we set up a flag and as soon as we found the key element, we fire the flag. Otherwise if we iterated through the entire string
+  And the flag remains unfired, we return null. O(n) run with constant space consumption.
+  
+Q3 Solution:
+
+  The most interesting out of the three problems! Certainly not something you usually find being asked a lot!
+  Despite all of it, at the core the problem was relatively simple and fun.
+  You will need to establish the positiveIntegerIterator class using an underlying integer iterator.
+  It should have 2 of the following properties:
+    1) next() method should return next item that is positive. Specifications never said what it should return if there is none.
+        My first solution returned -1, current - null
+    2) hasNext() method should return true if there is positive integer in the iterator and false otherwise.
+    
+  With that in mind we setup our iterator:
+    next - integer value of the next positive element.
+    internalIterator -iterator over array, over which we build our class.
+  
+  On initialization we look for the first positive element in the iterator, continuing to scan while we are withing the bounds
+  Once we found it, we record it into the next element.
+  next() method records output value from the next, then does the same, looking for the next positive. If recorded value is negative,
+  It means that there will never be a positive element and we can short-circuit and return null prematurely.
+  
+  hasNext() simply checks if next is positive.
+  
